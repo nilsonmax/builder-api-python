@@ -8,6 +8,9 @@ import models
 import schemas
 from database import engine, get_db
 
+# 1. IMPORTAR EL ROUTER DESDE ai_services.py
+from ai_services import router as ai_router
+
 # Crear automáticamente las tablas en MySQL si no existen
 models.Base.metadata.create_all(bind=engine)
 
@@ -24,6 +27,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# 2. CONECTAR LAS RUTAS DE IA A LA APLICACIÓN PRINCIPAL
+app.include_router(ai_router)
+
 
 # --- ESQUEMAS DE TIENDAS ---
 
